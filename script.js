@@ -4,10 +4,11 @@ const gameBoard = (() =>{
     let gameBoard = [
                      [null, null, null],
                      [null, null, null],
-                     [null, null, null],
+                     [null, null, null]
                     ];
     const updateGameBoard = (x,y, player) => {
-        gameBoard[x, y] = player.getPlayerSymbol();
+        gameBoard[x][y] = player.getPlayerSymbol();
+        console.table(gameBoard);
     }
     const getGameBoard = () => gameBoard;
     return {getGameBoard, updateGameBoard}
@@ -18,7 +19,7 @@ const pvpGame = (() => {
     let players;
     const startGame = () => {
         turn = 0;
-        players = [player("X"), player("O")]
+        players = [player("X"), player("O")];
     }
     const endTurn = () => {
         if(turn == 0)
@@ -26,7 +27,7 @@ const pvpGame = (() => {
         else turn = 0;
     }
     const makeMove = (x,y) => {
-        if (getTurn == 0)
+        if (getTurn() == 0)
             gameBoard.updateGameBoard(x,y, players[0]);
         else gameBoard.updateGameBoard(x,y, players[1]);
         pvpGame.endTurn();
