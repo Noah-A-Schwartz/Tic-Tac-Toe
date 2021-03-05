@@ -163,15 +163,18 @@ function makeMove() {
     this.removeEventListener("click", makeMove);
 }
 
-function startGame() {
+function startGame(button) {
     addEvents();
     pvpGame.startGame();
     showBoard();
+    button.style.display = "none";
+    document.getElementById("AI-button").style.display = "none";
 }
 
 
 function showBoard() {
     document.getElementsByClassName("game-board")[0].style.visibility = "visible"
+    
 }
 
 function addEvents() {
