@@ -38,7 +38,7 @@ const pvpGame = (() => {
     }
     //000
     const isWinner = () => {
-        winner = null;
+        
         temp = "";
         let currentState = gameBoard.getGameBoard();
         //Rows
@@ -64,7 +64,7 @@ const pvpGame = (() => {
         }
 
         //Colums
-        winner = null;
+        
         temp = "";
         for (i = 0; i < currentState.length; i++) {
             if (winner == null)
@@ -87,7 +87,7 @@ const pvpGame = (() => {
 
         }
         //Diagonal From Top left
-        winner = null;
+        
         temp = "";
         for (i = 0; i < currentState.length; i++) {
             temp += currentState[i][i];
@@ -103,7 +103,7 @@ const pvpGame = (() => {
             console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
             displayDiagonalFromLeft()
         }
-        winner = null;
+        
         temp = "";
         lastRow = null;
         lastColumn = null;
@@ -117,11 +117,16 @@ const pvpGame = (() => {
             winner = players[1];
             console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
             displayDiagonalFromRight()
+            
         }
         else if (temp == "XXX") {
             winner = players[0];
             console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
             displayDiagonalFromRight()
+            
+        }
+        if(winner != null){
+            disableEvents();
         }
     }
 
@@ -176,6 +181,13 @@ function addEvents() {
     }
 }
 
+function disableEvents(){
+    let board = document.getElementsByClassName("game-board")[0].children
+    for (i = 0; i < board.length; i++) {
+        board[i].removeEventListener('click', makeMove);
+    }
+}
+
 function displayWinningRow(row) {
     if (row == 0) {
         grid.children[0].children[0].style.color = "red";
@@ -224,3 +236,4 @@ function displayDiagonalFromRight(){
     grid.children[4].children[0].style.color = "red";
     grid.children[6].children[0].style.color = "red";
 }
+
