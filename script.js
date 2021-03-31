@@ -11,7 +11,19 @@ const gameBoard = (() => {
         console.table(gameBoard);
     }
     const getGameBoard = () => gameBoard;
-    return { getGameBoard, updateGameBoard }
+
+    const clearBoard = () => {
+        gameBoard = [
+            [null, null, null],
+            [null, null, null],
+            [null, null, null]
+        ]; 
+        let positions = document.getElementsByTagName("p");
+        for(i = 0; i < positions.length; i++){
+            positions[i].innerText = "";
+        }
+    }
+    return { getGameBoard, updateGameBoard, clearBoard }
 })();
 
 const pvpGame = (() => {
@@ -20,6 +32,7 @@ const pvpGame = (() => {
     let turn;
     let players;
     const startGame = () => {
+        winner = null;
         turn = 0;
         players = [player("X"), player("O")];
     }
@@ -36,6 +49,7 @@ const pvpGame = (() => {
 
         pvpGame.endTurn();
     }
+    
     //000
     const isWinner = () => {
         
@@ -53,11 +67,13 @@ const pvpGame = (() => {
                     winner = players[0];
                     console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
                     displayWinningRow(i);
+                    displayWinningPlayer(winner.getPlayerSymbol());
                 }
                 else if (temp == "OOO") {
                     winner = players[1];
                     console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
                     displayWinningRow(i);
+                    displayWinningPlayer(winner.getPlayerSymbol());
                 }
             }
 
@@ -77,11 +93,13 @@ const pvpGame = (() => {
                     winner = players[0];
                     console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
                     displayWinningColumn(i);
+                    displayWinningPlayer(winner.getPlayerSymbol());
                 }
                 else if (temp == "OOO") {
                     winner = players[1];
                     console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
                     displayWinningColumn(i);
+                    displayWinningPlayer(winner.getPlayerSymbol());
                 }
             }
 
@@ -97,11 +115,13 @@ const pvpGame = (() => {
             winner = players[1];
             console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
             displayDiagonalFromLeft()
+            displayWinningPlayer(winner.getPlayerSymbol());
         }
         else if (temp == "XXX") {
             winner = players[0];
             console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
             displayDiagonalFromLeft()
+            displayWinningPlayer(winner.getPlayerSymbol());
         }
         
         temp = "";
@@ -117,12 +137,14 @@ const pvpGame = (() => {
             winner = players[1];
             console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
             displayDiagonalFromRight()
+            displayWinningPlayer(winner.getPlayerSymbol());
             
         }
         else if (temp == "XXX") {
             winner = players[0];
             console.log("Player " + winner.getPlayerSymbol() + " is the Winner");
             displayDiagonalFromRight()
+            displayWinningPlayer(winner.getPlayerSymbol());
             
         }
         if(winner != null){
@@ -147,6 +169,7 @@ function getNodeIndex(elm) {
     for (i = 0; i < c.length; i++) if (c[i] == elm) return i;
 }
 
+
 function makeMove() {
     let index = getNodeIndex(this)
     let offset = Number(window.getComputedStyle(grid.children[0]).gridColumnStart) - 1;
@@ -167,12 +190,15 @@ function startGame(button) {
     addEvents();
     pvpGame.startGame();
     showBoard();
-    button.style.display = "none";
-    document.getElementById("AI-button").style.display = "none";
+    document.getElementsByClassName("game-options")[0].style.display = "none";
+    if(document.getElementsByTagName("h2")[0].style.display != "none"){
+        document.getElementsByTagName("h2")[0].style.display = "none";
+    }
 }
 
 
 function showBoard() {
+    gameBoard.clearBoard();
     document.getElementsByClassName("game-board")[0].style.visibility = "visible"
     
 }
@@ -189,6 +215,13 @@ function disableEvents(){
     for (i = 0; i < board.length; i++) {
         board[i].removeEventListener('click', makeMove);
     }
+}
+
+function displayWinningPlayer(winner){
+    let winningText = document.getElementsByTagName("h2")[0];
+    winningText.textContent = "Winner is " + winner;
+    winningText.style.display = "block";
+    document.getElementsByClassName("game-options")[0].style.display = "block";
 }
 
 function displayWinningRow(row) {
