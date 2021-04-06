@@ -2,9 +2,9 @@ let grid = document.getElementsByClassName("game-board")[0];
 //Board Module
 const gameBoard = (() => {
     let gameBoard = [
-        [null, null, null],
-        [null, null, null],
-        [null, null, null]
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
     ];
     const updateGameBoard = (x, y, player) => {
         gameBoard[x][y] = player.getPlayerSymbol();
@@ -16,16 +16,16 @@ const gameBoard = (() => {
         currentState = getGameBoard();
         for (i = 0; i < currentState.length; i++) {
             for (j = 0; j < currentState[i].length; j++) {
-                if (currentState[i][j] == null)
+                if (currentState[i][j] == "")
                     return [i, j];
             }
         }
     }
     const clearBoard = () => {
         gameBoard = [
-            [null, null, null],
-            [null, null, null],
-            [null, null, null]
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""]
         ];
         let positions = document.getElementsByTagName("p");
         for (i = 0; i < positions.length; i++) {
@@ -37,7 +37,25 @@ const gameBoard = (() => {
         temp = "";
         winner = null;
         let currentState = getGameBoard();
+
         //Rows
+        
+        //if (currentState.includes("") == false && winner == null)
+           // displayDraw();
+        let draw = false;
+        for (i = 0; i < currentState.length; i++){
+            if (currentState[i].includes("") == false && winner == null){
+                draw = true
+                continue;
+            }
+            else {
+                draw = false
+                break;
+            }
+        }
+        if (draw == true && winner == null){
+                displayDraw();
+        }
         for (i = 0; i < currentState.length; i++) {
             if (winner == null)
                 temp = "";
@@ -267,6 +285,14 @@ function displayWinningPlayer(winner) {
     winningText.style.display = "block";
     document.getElementsByClassName("game-options")[0].style.display = "block";
 }
+
+function displayDraw() {
+    let winningText = document.getElementsByTagName("h2")[0];
+    winningText.textContent = "Its a Draw!";
+    winningText.style.display = "block";
+    document.getElementsByClassName("game-options")[0].style.display = "block";
+}
+
 
 function displayWinningRow(row) {
     if (row == 0) {
