@@ -39,8 +39,8 @@ const gameBoard = (() => {
         let currentState = getGameBoard();
 
         //Rows
-        
-        
+
+
         for (i = 0; i < currentState.length; i++) {
             if (winner == null)
                 temp = "";
@@ -133,22 +133,22 @@ const gameBoard = (() => {
 
         }
         //if (currentState.includes("") == false && winner == null)
-           // displayDraw();
-           let draw = false;
-           for (i = 0; i < currentState.length; i++){
-               if (currentState[i].includes("") == false && winner == null){
-                   draw = true
-                   continue;
-               }
-               else {
-                   draw = false
-                   break;
-               }
-           }
-           if (draw == true && winner == null){
-                   displayDraw();
-                   return;
-           }
+        // displayDraw();
+        let draw = false;
+        for (i = 0; i < currentState.length; i++) {
+            if (currentState[i].includes("") == false && winner == null) {
+                draw = true
+                continue;
+            }
+            else {
+                draw = false
+                break;
+            }
+        }
+        if (draw == true && winner == null) {
+            displayDraw();
+            return;
+        }
         if (winner != null) {
             disableEvents();
         }
@@ -260,11 +260,11 @@ function startGame(button) {
         document.getElementsByTagName("h2")[0].style.display = "none";
     }
     let p = document.getElementsByTagName('p');
-    for(i = 0; i < p.length; i++){
-        if(p[i].style.color == "red"){
+    for (i = 0; i < p.length; i++) {
+        if (p[i].style.color == "red") {
             p[i].style.color = "blue";
         }
-        if(p[i].className != "slot"){
+        if (p[i].className != "slot") {
             p[i].className = "slot";
         }
     }
@@ -305,7 +305,7 @@ function displayDraw() {
     document.getElementsByClassName("game-options")[0].style.display = "block";
 }
 
-
+//Change to for loops
 function displayWinningRow(row) {
     if (row == 0) {
         grid.children[0].children[0].style.color = "red";
