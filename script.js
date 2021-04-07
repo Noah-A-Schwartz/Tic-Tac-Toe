@@ -40,22 +40,7 @@ const gameBoard = (() => {
 
         //Rows
         
-        //if (currentState.includes("") == false && winner == null)
-           // displayDraw();
-        let draw = false;
-        for (i = 0; i < currentState.length; i++){
-            if (currentState[i].includes("") == false && winner == null){
-                draw = true
-                continue;
-            }
-            else {
-                draw = false
-                break;
-            }
-        }
-        if (draw == true && winner == null){
-                displayDraw();
-        }
+        
         for (i = 0; i < currentState.length; i++) {
             if (winner == null)
                 temp = "";
@@ -147,6 +132,23 @@ const gameBoard = (() => {
             displayWinningPlayer(winner.getPlayerSymbol());
 
         }
+        //if (currentState.includes("") == false && winner == null)
+           // displayDraw();
+           let draw = false;
+           for (i = 0; i < currentState.length; i++){
+               if (currentState[i].includes("") == false && winner == null){
+                   draw = true
+                   continue;
+               }
+               else {
+                   draw = false
+                   break;
+               }
+           }
+           if (draw == true && winner == null){
+                   displayDraw();
+                   return;
+           }
         if (winner != null) {
             disableEvents();
         }
@@ -244,6 +246,7 @@ function showAiMove(x, y) {
         y += 6;
     console.log("TURN: " + game.getTurn());
     grid[y].innerText = "O";
+    grid[y].parentElement.removeEventListener('click', makeMove);
 }
 
 function startGame(button) {
@@ -255,6 +258,15 @@ function startGame(button) {
     document.getElementsByClassName("game-options")[0].style.display = "none";
     if (document.getElementsByTagName("h2")[0].style.display != "none") {
         document.getElementsByTagName("h2")[0].style.display = "none";
+    }
+    let p = document.getElementsByTagName('p');
+    for(i = 0; i < p.length; i++){
+        if(p[i].style.color == "red"){
+            p[i].style.color = "blue";
+        }
+        if(p[i].className != "slot"){
+            p[i].className = "slot";
+        }
     }
 }
 
@@ -297,49 +309,73 @@ function displayDraw() {
 function displayWinningRow(row) {
     if (row == 0) {
         grid.children[0].children[0].style.color = "red";
+        grid.children[0].children[0].className += " winning-path";
         grid.children[1].children[0].style.color = "red";
+        grid.children[1].children[0].className += " winning-path";
         grid.children[2].children[0].style.color = "red";
+        grid.children[2].children[0].className += " winning-path";
 
     }
     if (row == 1) {
         grid.children[3].children[0].style.color = "red";
+        grid.children[3].children[0].className += " winning-path";
         grid.children[4].children[0].style.color = "red";
+        grid.children[4].children[0].className += " winning-path";
         grid.children[5].children[0].style.color = "red";
+        grid.children[5].children[0].className += " winning-path";
     }
     if (row == 2) {
         grid.children[6].children[0].style.color = "red";
+        grid.children[6].children[0].className += " winning-path";
         grid.children[7].children[0].style.color = "red";
+        grid.children[7].children[0].className += " winning-path";
         grid.children[8].children[0].style.color = "red";
+        grid.children[8].children[0].className += " winning-path";
     }
 }
 function displayWinningColumn(column) {
     if (column == 0) {
         grid.children[0].children[0].style.color = "red";
+        grid.children[0].children[0].className += " winning-path";
         grid.children[3].children[0].style.color = "red";
+        grid.children[3].children[0].className += " winning-path";
         grid.children[6].children[0].style.color = "red";
+        grid.children[6].children[0].className += " winning-path";
 
     }
     if (column == 1) {
         grid.children[1].children[0].style.color = "red";
+        grid.children[1].children[0].className += " winning-path";
         grid.children[4].children[0].style.color = "red";
+        grid.children[4].children[0].className += " winning-path";
         grid.children[7].children[0].style.color = "red";
+        grid.children[7].children[0].className += " winning-path";
     }
     if (column == 2) {
         grid.children[2].children[0].style.color = "red";
+        grid.children[2].children[0].className += " winning-path";
         grid.children[5].children[0].style.color = "red";
+        grid.children[5].children[0].className += " winning-path";
         grid.children[8].children[0].style.color = "red";
+        grid.children[8].children[0].className += " winning-path";
     }
 }
 
 function displayDiagonalFromLeft() {
     grid.children[0].children[0].style.color = "red";
+    grid.children[0].children[0].className += " winning-path";
     grid.children[4].children[0].style.color = "red";
+    grid.children[4].children[0].className += " winning-path";
     grid.children[8].children[0].style.color = "red";
+    grid.children[8].children[0].className += " winning-path";
 }
 
 function displayDiagonalFromRight() {
     grid.children[2].children[0].style.color = "red";
+    grid.children[2].children[0].className += " winning-path";
     grid.children[4].children[0].style.color = "red";
+    grid.children[4].children[0].className += " winning-path";
     grid.children[6].children[0].style.color = "red";
+    grid.children[6].children[0].className += " winning-path";
 }
 

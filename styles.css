@@ -83,6 +83,17 @@ p{
     font-size: 80px;
     text-shadow: 5px 5px #5759A8;
 }
+
+.winning-path {
+    animation: blinker 1s linear infinite;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+
 #position-0, #position-3, #position-6{
     border-right: 10px solid #5759A8;
 }
